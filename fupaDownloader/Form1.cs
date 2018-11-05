@@ -49,10 +49,10 @@ namespace fupaDownloader
                 for(int i = 0; i < ids.Length;i++)
                 {
                     progressBar1.Increment(1);
-                    label2.Text = i+1 + " von " + ids.Length + " heruntergeladen.";
+                    label2.Text = i+1 + " von " + ids.Length + " heruntergeladen";
                     label2.Update();
                     client.DownloadFile("https://www.fupa.net/fupa/images/galerie/big/" + ids[i]+ ".jpg", @path + i + ".jpg");
-                }
+            }
                 progressBar1.Visible = false;
                 progressBar1.Value = 0;
             }
