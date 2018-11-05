@@ -27,12 +27,12 @@ namespace fupaDownloader
         private void button1_Click(object sender, EventArgs e)
         {
 
-            String url = textBox1.Text;
+            String url = textBox2.Text;
 
             try
             {
                 int[] ids = getPicIDs(url);
-                downloadPics(ids, "D:\\Test\\Pics2\\");
+                downloadPics(ids, textBox1.Text);
             }
             catch (Exception exp)
             {
@@ -40,6 +40,17 @@ namespace fupaDownloader
             }
         }
 
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            fbd.ShowNewFolderButton = true;
+            if(fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                textBox1.Text = fbd.SelectedPath;
+            }
+        }
+
+        //Check for right URL
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
@@ -61,7 +72,7 @@ namespace fupaDownloader
                     label2.Focus();
                     client.DownloadFile("https://www.fupa.net/fupa/images/galerie/big/" + ids[i] + ".jpg", @path + (i + 1) + ".jpg");
                 }
-                MessageBox.Show(length+" Bilder erfolgreich heruntergeladen!", "Herunterladen erfolgreich", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(length + " Bilder erfolgreich heruntergeladen!", "Herunterladen erfolgreich", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 progressBar1.Visible = false;
                 progressBar1.Value = 0;
                 label2.Visible = false;
@@ -89,11 +100,6 @@ namespace fupaDownloader
             picIDs[split.Length - 1] = int.Parse(last);
 
             return picIDs;
-        }
-
-        private void progressBar1_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void button2_Click(object sender, EventArgs e)
