@@ -1,4 +1,4 @@
-# Fupa-Gallerien-Downloader
+# Fupa-Galerien Downloader
 Ein Downloader für Fupa Gallerien
 Dieses kleine Tool dient dazu, Gallerien von Fupa effizient herunterzuladen.
 
