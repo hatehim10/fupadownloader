@@ -31,6 +31,8 @@ namespace fupaDownloader
             int[] ids = getPicIDs(url);
 
             progressBar1.Visible = true;
+            label2.Visible = true;
+
             downloadPics(ids,"D:\\Test\\Pics2\\");
         }
 
@@ -46,10 +48,13 @@ namespace fupaDownloader
                 progressBar1.Maximum = ids.Length;
                 for(int i = 0; i < ids.Length;i++)
                 {
-                    client.DownloadFile("https://www.fupa.net/fupa/images/galerie/big/" + ids[i]+ ".jpg", @path + i + ".jpg");
                     progressBar1.Increment(1);
+                    label2.Text = i+1 + " von " + ids.Length + " heruntergeladen.";
+                    label2.Update();
+                    client.DownloadFile("https://www.fupa.net/fupa/images/galerie/big/" + ids[i]+ ".jpg", @path + i + ".jpg");
                 }
                 progressBar1.Visible = false;
+                progressBar1.Value = 0;
             }
         }
 
