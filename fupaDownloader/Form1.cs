@@ -28,12 +28,16 @@ namespace fupaDownloader
         {
 
             String url = textBox1.Text;
-            int[] ids = getPicIDs(url);
 
-            progressBar1.Visible = true;
-            label2.Visible = true;
-
-            downloadPics(ids,"D:\\Test\\Pics2\\");
+            try
+            {
+                int[] ids = getPicIDs(url);
+                downloadPics(ids, "D:\\Test\\Pics2\\");
+            }
+            catch (Exception exp)
+            {
+                Console.WriteLine(exp.ToString());
+            }
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -45,16 +49,22 @@ namespace fupaDownloader
         {
             using (WebClient client = new WebClient())
             {
-                progressBar1.Maximum = ids.Length;
-                for(int i = 0; i < ids.Length;i++)
+                int length = ids.Length;
+                progressBar1.Visible = true;
+                label2.Visible = true;
+                progressBar1.Maximum = length;
+                for (int i = 0; i < length; i++)
                 {
                     progressBar1.Increment(1);
-                    label2.Text = i+1 + " von " + ids.Length + " heruntergeladen";
+                    label2.Text = i + 1 + " von " + length + " heruntergeladen";
                     label2.Update();
-                    client.DownloadFile("https://www.fupa.net/fupa/images/galerie/big/" + ids[i]+ ".jpg", @path + i + ".jpg");
-            }
+                    label2.Focus();
+                    client.DownloadFile("https://www.fupa.net/fupa/images/galerie/big/" + ids[i] + ".jpg", @path + (i + 1) + ".jpg");
+                }
+                MessageBox.Show(length+" Bilder erfolgreich heruntergeladen!", "Herunterladen erfolgreich", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 progressBar1.Visible = false;
                 progressBar1.Value = 0;
+                label2.Visible = false;
             }
         }
 
